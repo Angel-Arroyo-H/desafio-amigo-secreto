@@ -4,7 +4,8 @@ function adicionarAmigo(){
     let amigo = document.getElementById('amigo').value;
     validaEntrada(amigo);
     limpaCampo();
-    console.log(listaDeAmigos); 
+    console.log(listaDeAmigos);
+    exibeLista(listaDeAmigos);
 }
 
 function validaEntrada(amigo){
@@ -18,6 +19,16 @@ function validaEntrada(amigo){
 }
 
 function limpaCampo(){
-    campo = document.getElementById('amigo');
+    let campo = document.getElementById('amigo');
     campo.value = '';
+}
+
+function exibeLista(lista){
+    let campo = document.getElementById('listaAmigos');
+    campo.innerHTML = 'Lista de amigos:';
+    for(let i = 0; i < lista.length; i++){
+        let item = document.createElement('li');
+        item.textContent = lista[i];
+        campo.appendChild(item);
+    }
 }
