@@ -1,11 +1,25 @@
 //O principal objetivo deste desafio é fortalecer suas habilidades em lógica de programação. Aqui você deverá desenvolver a lógica para resolver o problema.
 let listaDeAmigos = [];
-function adicionarAmigo(){
+
+function adicionarAmigo(){    
+    limpaTexto('resultado');
     let amigo = document.getElementById('amigo').value;
     validaEntrada(amigo);
-    limpaCampo();
+    limpaCampo('amigo');
     console.log(listaDeAmigos);
     exibeLista(listaDeAmigos);
+}
+
+function sortearAmigo(){
+    // Valida se a lista não é vazia
+    if (listaDeAmigos.length == 0){
+        alert('Deve adicionar o nome dos seus amigos antes de sortear.');
+    }else{
+        let amigoSorteado = selecionaAmigoAleatoriamente(listaDeAmigos);
+        let resultado = document.getElementById('resultado');
+        resultado.innerHTML = `O nome do seu amigo secreto é: ${amigoSorteado}`;
+        resetaElementos();
+    }
 }
 
 function validaEntrada(amigo){
@@ -13,14 +27,23 @@ function validaEntrada(amigo){
     if(amigo.trim() === ''){
         alert('Entrada inválida: Digite um nome.');
     }else{
-        listaDeAmigos.push(amigo);        
-        // Podemos adicionar confirmação caso o nome seja um possivel número
+        // Valida nome repetido
+        if(listaDeAmigos.includes(amigo)){
+            alert('Esse nome já foi registrado.')
+        }else{
+            listaDeAmigos.push(amigo);
+        }
     }
 }
 
-function limpaCampo(){
-    let campo = document.getElementById('amigo');
+function limpaCampo(nomeCampo){
+    let campo = document.getElementById(nomeCampo);
     campo.value = '';
+}
+
+function limpaTexto(id){
+    let campo = document.getElementById(id);
+    campo.innerHTML = '';
 }
 
 function exibeLista(lista){
@@ -31,4 +54,14 @@ function exibeLista(lista){
         item.textContent = lista[i];
         campo.appendChild(item);
     }
+}
+
+function selecionaAmigoAleatoriamente(lista){
+    let indice = Math.floor(Math.random()*lista.length);
+    return lista[indice];
+}
+
+function resetaElementos(){
+    listaDeAmigos = [];
+    limpaTexto('listaAmigos');
 }
